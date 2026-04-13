@@ -1,4 +1,9 @@
-
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Cimyy Kentut</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -65,10 +70,7 @@
   margin-bottom: 0.5rem;
 }
 
-.name-gold {
-  color: #c9a96e;
-  font-style: italic;
-}
+.name-gold { color: #c9a96e; font-style: italic; }
 
 .body-text {
   font-size: 0.97rem;
@@ -104,10 +106,7 @@
   margin: 0.4rem;
   text-transform: uppercase;
 }
-.btn-gold:hover {
-  background: rgba(201,169,110,0.15);
-  letter-spacing: 3px;
-}
+.btn-gold:hover { background: rgba(201,169,110,0.15); letter-spacing: 3px; }
 .btn-gold:active { transform: scale(0.97); }
 
 .btn-solid {
@@ -172,17 +171,8 @@
   font-family: Georgia, serif;
 }
 
-.progress-bar {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 2rem;
-}
-.prog-seg {
-  height: 1.5px;
-  width: 32px;
-  background: rgba(201,169,110,0.2);
-  border-radius: 2px;
-}
+.progress-bar { display: flex; gap: 6px; margin-bottom: 2rem; }
+.prog-seg { height: 1.5px; width: 32px; background: rgba(201,169,110,0.2); border-radius: 2px; }
 .prog-seg.done { background: #c9a96e; }
 
 .big-symbol {
@@ -197,13 +187,10 @@
 }
 
 .finale-ring {
-  width: 120px;
-  height: 120px;
+  width: 120px; height: 120px;
   border-radius: 50%;
   border: 1px solid rgba(201,169,110,0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   margin: 0 auto 1.5rem;
   position: relative;
 }
@@ -217,11 +204,9 @@
 .finale-inner { font-size: 2.8rem; }
 
 .sparkle-container {
-  position: absolute;
-  top: 0; left: 0;
+  position: absolute; top: 0; left: 0;
   width: 100%; height: 100%;
-  pointer-events: none;
-  z-index: 10;
+  pointer-events: none; z-index: 10;
 }
 .sparkle {
   position: absolute;
@@ -237,13 +222,176 @@
 }
 
 .no-float { transition: transform 0.4s cubic-bezier(.25,.8,.25,1); display: inline-block; }
-</style>
 
+/* LOADING */
+#loadingOverlay {
+  position: fixed; inset: 0;
+  background: #0d0810;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 100;
+  transition: opacity 0.6s;
+}
+#loadingOverlay.hide { opacity: 0; pointer-events: none; }
+.loading-text { color: rgba(201,169,110,0.5); font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase; animation: pulse 1.5s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.3} }
+
+/* LOCKED VIEW */
+#lockedView {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 3rem 2rem;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+#lockedView.active { display: flex; }
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.45rem 1.2rem;
+  border-radius: 40px;
+  font-size: 0.75rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  font-family: Georgia, serif;
+}
+.status-badge.yes { background: rgba(201,169,110,0.15); border: 0.5px solid #c9a96e; color: #c9a96e; }
+.status-badge.no  { background: rgba(100,80,130,0.15); border: 0.5px solid rgba(150,120,180,0.5); color: #9a7aaa; }
+.status-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.lock-icon { font-size: 1.4rem; color: rgba(201,169,110,0.4); margin-top: 2rem; display: block; }
+.lock-label { font-size: 0.68rem; letter-spacing: 3px; color: rgba(201,169,110,0.3); text-transform: uppercase; margin-top: 0.4rem; }
+.answered-on { font-size: 0.72rem; color: #4a3a5a; letter-spacing: 2px; margin-top: 1.5rem; }
+
+.status-yes-card {
+  background: rgba(201,169,110,0.06);
+  border: 0.5px solid rgba(201,169,110,0.25);
+  border-radius: 20px;
+  padding: 2rem 2.2rem;
+  max-width: 400px; width: 100%;
+  margin: 1rem 0 1.5rem;
+}
+.status-no-card {
+  background: rgba(100,80,130,0.06);
+  border: 0.5px solid rgba(150,120,180,0.2);
+  border-radius: 20px;
+  padding: 2rem 2.2rem;
+  max-width: 400px; width: 100%;
+  margin: 1rem 0 1.5rem;
+}
+
+/* ADMIN VIEW */
+#adminView {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 3rem 2rem;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+#adminView.active { display: flex; }
+.admin-card {
+  background: rgba(255,255,255,0.03);
+  border: 0.5px solid rgba(201,169,110,0.2);
+  border-radius: 20px;
+  padding: 2.5rem;
+  max-width: 380px; width: 100%;
+  margin: 1.5rem 0;
+}
+.admin-label { font-size: 0.7rem; letter-spacing: 3px; color: #c9a96e; text-transform: uppercase; margin-bottom: 0.4rem; display: block; }
+.admin-value { font-size: 1.4rem; color: #f5eaff; margin-bottom: 1.5rem; line-height: 1.4; }
+.admin-date  { font-size: 0.8rem; color: #6a5a7a; letter-spacing: 1.5px; }
+.admin-refresh {
+  background: transparent;
+  border: 0.5px solid rgba(201,169,110,0.3);
+  color: rgba(201,169,110,0.6);
+  padding: 0.6rem 1.5rem;
+  border-radius: 40px;
+  font-family: Georgia, serif;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  margin-top: 1rem;
+  text-transform: uppercase;
+  transition: all 0.3s;
+}
+.admin-refresh:hover { border-color: #c9a96e; color: #c9a96e; }
+</style>
+</head>
+<body>
 <div class="wrap" id="mainWrap">
   <canvas class="stars-canvas" id="starsCanvas"></canvas>
   <div class="sparkle-container" id="sparkleCont"></div>
 
-  <!-- PAGE 0: Intro -->
+  <!-- LOADING -->
+  <div id="loadingOverlay">
+    <p class="loading-text">memuat...</p>
+  </div>
+
+  <!-- ADMIN VIEW -->
+  <div id="adminView">
+    <div class="ornament">— panel rahasia —</div>
+    <div class="divider"><div class="divider-line"></div><div class="divider-gem"></div><div class="divider-line"></div></div>
+    <h1 class="main-title" style="font-size:1.6rem;">Status Jawaban<br><span class="name-gold">Cimyy</span></h1>
+    <div class="admin-card">
+      <span class="admin-label">Jawaban</span>
+      <div class="admin-value" id="adminAnswer">...</div>
+      <span class="admin-label">Tanggal</span>
+      <div class="admin-date" id="adminDate">...</div>
+    </div>
+    <button class="admin-refresh" onclick="adminRefresh()">↻ Refresh</button>
+  </div>
+
+  <!-- LOCKED VIEW -->
+  <div id="lockedView">
+    <div class="ornament">— sudah terjawab —</div>
+    <div id="lockYes" style="display:none; flex-direction:column; align-items:center;">
+      <div class="status-badge yes"><span class="status-dot"></span>Status: Iya ♡</div>
+      <div class="finale-ring"><span class="finale-inner">♡</span></div>
+      <h1 class="main-title">Kamu sudah bilang<br><span class="name-gold">Ya.</span></h1>
+      <div class="divider"><div class="divider-line"></div><div class="divider-gem"></div><div class="divider-line"></div></div>
+      <div class="status-yes-card">
+        <p class="body-text" style="margin-bottom:0; font-size:0.9rem;">
+          Hari ini menjadi awal dari sesuatu yang indah.<br>
+          Aku akan ada, selalu, untuk kamu.
+        </p>
+      </div>
+      <p class="body-text" style="font-size:0.8rem; font-style:italic; color:#7a6a8a;">
+        "Dari semua hal yang bisa kupilih,<br>aku memilih untuk menyukaimu."
+      </p>
+    </div>
+    <div id="lockNo" style="display:none; flex-direction:column; align-items:center;">
+      <div class="status-badge no"><span class="status-dot"></span>Status: Belum tahu...</div>
+      <span class="big-symbol" style="animation:none; opacity:0.4;">♡</span>
+      <h1 class="main-title" style="font-size:1.8rem;">Tidak apa-apa,<br><span class="name-gold">Cimyy.</span></h1>
+      <div class="divider"><div class="divider-line"></div><div class="divider-gem"></div><div class="divider-line"></div></div>
+      <div class="status-no-card">
+        <p class="body-text" style="margin-bottom:0; font-size:0.9rem; color:#9a8aaa;">
+          Perasaan ini tetap nyata, meski jawabannya belum pasti.<br>
+          Aku akan tetap di sini, tanpa tekanan.
+        </p>
+      </div>
+    </div>
+    <span class="lock-icon">🔒</span>
+    <p class="lock-label">halaman ini telah terkunci</p>
+    <p class="answered-on" id="answeredDate"></p>
+  </div>
+
+  <!-- PAGE 0 -->
   <div class="page active" id="p0">
     <div class="ornament">— sebuah pesan untukmu —</div>
     <div class="divider"><div class="divider-line"></div><div class="divider-gem"></div><div class="divider-line"></div></div>
@@ -255,7 +403,7 @@
     <button class="btn-gold" onclick="go(1)">Buka Surat &nbsp;›</button>
   </div>
 
-  <!-- PAGE 1: Pembuka -->
+  <!-- PAGE 1 -->
   <div class="page" id="p1">
     <div class="progress-bar">
       <div class="prog-seg done"></div><div class="prog-seg"></div><div class="prog-seg"></div><div class="prog-seg"></div>
@@ -271,7 +419,7 @@
     <button class="btn-gold" onclick="go(2)">Lanjutkan &nbsp;›</button>
   </div>
 
-  <!-- PAGE 2: Alasan -->
+  <!-- PAGE 2 -->
   <div class="page" id="p2">
     <div class="progress-bar">
       <div class="prog-seg done"></div><div class="prog-seg done"></div><div class="prog-seg"></div><div class="prog-seg"></div>
@@ -281,28 +429,16 @@
     <p class="body-text" style="font-size:0.85rem; margin-bottom:1rem;">Bukan karena kebetulan. Ini alasannya.</p>
     <div class="card-glass">
       <div class="reasons-grid">
-        <div class="reason-item">
-          <span class="reason-num">I</span>
-          <span class="reason-text">Caramu hadir selalu membuat ruangan terasa hangat</span>
-        </div>
-        <div class="reason-item">
-          <span class="reason-num">II</span>
-          <span class="reason-text">Tawamu adalah hal yang paling tulus yang pernah kudengar</span>
-        </div>
-        <div class="reason-item">
-          <span class="reason-num">III</span>
-          <span class="reason-text">Kamu jujur pada dirimu sendiri, dan itu langka</span>
-        </div>
-        <div class="reason-item">
-          <span class="reason-num">IV</span>
-          <span class="reason-text">Di dekatmu, aku selalu ingin menjadi versi terbaik diriku</span>
-        </div>
+        <div class="reason-item"><span class="reason-num">I</span><span class="reason-text">Caramu hadir selalu membuat ruangan terasa hangat</span></div>
+        <div class="reason-item"><span class="reason-num">II</span><span class="reason-text">Tawamu adalah hal yang paling tulus yang pernah kudengar</span></div>
+        <div class="reason-item"><span class="reason-num">III</span><span class="reason-text">Kamu jujur pada dirimu sendiri, dan itu langka</span></div>
+        <div class="reason-item"><span class="reason-num">IV</span><span class="reason-text">Di dekatmu, aku selalu ingin menjadi versi terbaik diriku</span></div>
       </div>
     </div>
     <button class="btn-gold" onclick="go(3)">Masih ada lagi &nbsp;›</button>
   </div>
 
-  <!-- PAGE 3: Pernyataan -->
+  <!-- PAGE 3 -->
   <div class="page" id="p3">
     <div class="progress-bar">
       <div class="prog-seg done"></div><div class="prog-seg done"></div><div class="prog-seg done"></div><div class="prog-seg"></div>
@@ -319,7 +455,7 @@
     <button class="btn-gold" onclick="go(4)">Ada satu pertanyaan &nbsp;›</button>
   </div>
 
-  <!-- PAGE 4: Ajak jadian -->
+  <!-- PAGE 4 -->
   <div class="page" id="p4">
     <div class="progress-bar">
       <div class="prog-seg done"></div><div class="prog-seg done"></div><div class="prog-seg done"></div><div class="prog-seg done"></div>
@@ -337,13 +473,13 @@
       </p>
     </div>
     <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:0.5rem; align-items:center;">
-      <button class="btn-solid" onclick="sayYes()">Ya, aku mau</button>
+      <button class="btn-solid" onclick="saveAnswer('yes')">Ya, aku mau</button>
       <button class="btn-ghost-sm no-float" id="noBtn" onclick="runAway()">Belum tahu...</button>
     </div>
     <p style="margin-top:1rem; font-size:0.75rem; color:#5a4d6a; letter-spacing:1px;">tombol emas itu menunggumu</p>
   </div>
 
-  <!-- PAGE 5: Yes! -->
+  <!-- PAGE 5 -->
   <div class="page" id="p5">
     <div class="ornament">— mulai hari ini —</div>
     <div class="finale-ring"><span class="finale-inner">♡</span></div>
@@ -361,46 +497,115 @@
 </div>
 
 <script>
-const canvas = document.getElementById('starsCanvas');
-const ctx = canvas.getContext('2d');
+const BIN_ID  = '69dd4974aaba882197f5fb89';
+const API_KEY = '$2a$10$uJ10j9kMc/fmNbQquFf0n.BJgAkb9w4i12XnN3W6IlwTjLZ3c95.a';
+const BIN_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
 
-function resizeCanvas() {
-  const wrap = document.getElementById('mainWrap');
-  canvas.width = wrap.offsetWidth;
-  canvas.height = wrap.offsetHeight || window.innerHeight;
+async function getStatus() {
+  const res = await fetch(BIN_URL + '/latest', {
+    headers: { 'X-Master-Key': API_KEY }
+  });
+  const data = await res.json();
+  return data.record;
 }
 
-const stars = [];
-function initStars() {
-  resizeCanvas();
-  stars.length = 0;
-  for (let i = 0; i < 120; i++) {
-    stars.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      r: Math.random() * 1.2 + 0.2,
-      a: Math.random(),
-      speed: 0.003 + Math.random() * 0.008,
-      phase: Math.random() * Math.PI * 2
-    });
-  }
+async function setStatus(answer) {
+  const body = {
+    answered: true,
+    answer,
+    date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }),
+    ts: Date.now()
+  };
+  await fetch(BIN_URL, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', 'X-Master-Key': API_KEY },
+    body: JSON.stringify(body)
+  });
+  return body;
 }
 
-function drawStars(t) {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  for (const s of stars) {
-    const alpha = 0.3 + 0.5 * Math.abs(Math.sin(t * s.speed + s.phase));
-    ctx.beginPath();
-    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(201,169,110,${alpha})`;
-    ctx.fill();
-  }
+window.addEventListener('DOMContentLoaded', async () => {
+  initStars();
   requestAnimationFrame(drawStars);
+
+  // Admin mode: buka URL dengan ?admin
+  if (window.location.search.includes('admin')) {
+    showAdmin();
+    return;
+  }
+
+  try {
+    const status = await getStatus();
+    if (status && status.answered) {
+      showLocked(status);
+      return;
+    }
+  } catch(e) {}
+
+  hideLoading();
+});
+
+async function saveAnswer(answer) {
+  const tempData = {
+    answered: true,
+    answer,
+    date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }),
+    ts: Date.now()
+  };
+  showLocked(tempData);
+  if (answer === 'yes') {
+    burst(false);
+    setTimeout(() => burst(false), 600);
+    setTimeout(() => burst(false), 1200);
+  }
+  try { await setStatus(answer); } catch(e) { console.warn('sync failed'); }
 }
 
-initStars();
-requestAnimationFrame(drawStars);
-window.addEventListener('resize', initStars);
+function showLocked(data) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('lockedView').classList.add('active');
+  if (data.answer === 'yes') {
+    document.getElementById('lockYes').style.display = 'flex';
+    document.getElementById('lockNo').style.display = 'none';
+  } else {
+    document.getElementById('lockYes').style.display = 'none';
+    document.getElementById('lockNo').style.display = 'flex';
+  }
+  document.getElementById('answeredDate').textContent = 'dijawab pada ' + (data.date || '—');
+  hideLoading();
+}
+
+async function showAdmin() {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('adminView').classList.add('active');
+  hideLoading();
+  await adminRefresh();
+}
+
+async function adminRefresh() {
+  document.getElementById('adminAnswer').textContent = '...';
+  document.getElementById('adminDate').textContent = '...';
+  try {
+    const s = await getStatus();
+    if (s && s.answered) {
+      document.getElementById('adminAnswer').textContent =
+        s.answer === 'yes' ? '✅  Ya, aku mau ♡' : '🤍  Belum tahu...';
+      document.getElementById('adminDate').textContent = s.date || '—';
+    } else {
+      document.getElementById('adminAnswer').textContent = '⏳  Belum dijawab';
+      document.getElementById('adminDate').textContent = '—';
+    }
+  } catch(e) {
+    document.getElementById('adminAnswer').textContent = '⚠️  Gagal load';
+    document.getElementById('adminDate').textContent = 'cek koneksi internet';
+  }
+}
+
+function hideLoading() {
+  const ol = document.getElementById('loadingOverlay');
+  ol.classList.add('hide');
+  setTimeout(() => ol.style.display = 'none', 700);
+}
 
 function go(n) {
   document.querySelectorAll('.page').forEach((p, i) => {
@@ -413,20 +618,52 @@ let noMoves = 0;
 function runAway() {
   noMoves++;
   const btn = document.getElementById('noBtn');
-  const labels = ['Pikir dulu...', 'Masa iya tidak?', 'Kamu yakin?', ''];
-  if (noMoves >= 4) { btn.style.opacity = '0'; btn.style.pointerEvents = 'none'; return; }
+  const labels = ['Pikir dulu...', 'Masa iya tidak?', 'Kamu yakin?', 'Tidak bisa...'];
+  if (noMoves >= 4) {
+    btn.style.opacity = '0';
+    btn.style.pointerEvents = 'none';
+    setTimeout(() => saveAnswer('no'), 600);
+    return;
+  }
   btn.textContent = labels[noMoves - 1];
   const dx = (Math.random() - 0.5) * 160;
   const dy = (Math.random() - 0.5) * 80;
   btn.style.transform = `translate(${Math.round(dx)}px, ${Math.round(dy)}px)`;
 }
 
-function sayYes() {
-  go(5);
-  burst(false);
-  setTimeout(() => burst(false), 600);
-  setTimeout(() => burst(false), 1200);
+const canvas = document.getElementById('starsCanvas');
+const ctx = canvas.getContext('2d');
+const stars = [];
+
+function initStars() {
+  const wrap = document.getElementById('mainWrap');
+  canvas.width = wrap.offsetWidth;
+  canvas.height = Math.max(wrap.offsetHeight, window.innerHeight);
+  stars.length = 0;
+  for (let i = 0; i < 120; i++) {
+    stars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.2 + 0.2,
+      speed: 0.003 + Math.random() * 0.008,
+      phase: Math.random() * Math.PI * 2
+    });
+  }
 }
+
+function drawStars(t) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (const s of stars) {
+    const alpha = 0.3 + 0.5 * Math.abs(Math.sin(t * 0.001 * s.speed * 300 + s.phase));
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(201,169,110,${alpha})`;
+    ctx.fill();
+  }
+  requestAnimationFrame(drawStars);
+}
+
+window.addEventListener('resize', initStars);
 
 function burst(subtle) {
   const cont = document.getElementById('sparkleCont');
@@ -446,3 +683,5 @@ function burst(subtle) {
   }
 }
 </script>
+</body>
+</html>
